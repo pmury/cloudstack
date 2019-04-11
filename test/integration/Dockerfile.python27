@@ -1,0 +1,16 @@
+FROM python:2.7
+
+COPY . /opt/cs/
+
+WORKDIR /tmp/
+RUN wget https://builds.apache.org/job/cloudstack-marvin/lastSuccessfulBuild/artifact/tools/marvin/dist/Marvin-0.1.0-2626.tar.gz  &&\
+    pip install Marvin-0.1.0-2626.tar.gz 
+
+WORKDIR /opt/cs/
+
+RUN nosetests --with-marvin --marvin-config=./setup.cfg --hypervisor=vmware -s -a tags=advanced /opt/cs/test/integration/component/
+
+
+
+
+

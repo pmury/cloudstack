@@ -1,0 +1,10 @@
+FROM python:3
+
+COPY . /opt/cs/
+
+RUN pip3 install cloudstack-marvin nose
+
+WORKDIR /opt/cs/
+
+
+RUN nosetests --with-marvin --marvin-config=./setup.cfg --hypervisor=vmware -s -a tags=advanced /opt/cs/test/integration/component/
